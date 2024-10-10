@@ -28,10 +28,34 @@
             width: 160px;
             height: 190px;
         }
-
         /* Flip KEN horizontally */
         #stickman2 {
             transform: scaleX(-1);
+        }
+        #startButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2000; 
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #resetButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2000;
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+            display: none; /* Initially hidden */
         }
     </style>
 </head>
@@ -44,6 +68,8 @@
     <img id="stickman2" class="character" src="KENGIF1.gif" alt="Stickman 2">
     
     <canvas id="gameCanvas"></canvas>
+    <button id="startButton">Start Game</button>
+    <button id="resetButton" onclick="resetGame()">Reset Game</button> <!-- Reset button -->
 
     <script>
         const canvas = document.getElementById('gameCanvas');
@@ -192,6 +218,12 @@
             stickman2.style.top = `${stickman2Y}px`;
         }
 
+        function startGame() {
+            document.getElementById('startButton').style.display = 'none'; // Hide start button
+            document.getElementById('resetButton').style.display = 'none'; // Hide reset button
+            update(); // Start the game loop
+        }
+
         function update() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -237,11 +269,9 @@
             updateSwordStab();
 
             requestAnimationFrame(update);
-
         }
 
-        update();
+        document.getElementById('startButton').addEventListener('click', startGame); // Add event listener for start button
     </script>
 </body>
 </html>
-
