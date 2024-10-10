@@ -28,7 +28,6 @@
             width: 160px;
             height: 190px;
         }
-        /* Flip KEN horizontally */
         #stickman2 {
             transform: scaleX(-1);
         }
@@ -37,25 +36,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 2000; 
             padding: 10px 20px;
             font-size: 20px;
-            background-color: white;
-            border: none;
+            z-index: 1000;
             cursor: pointer;
-        }
-        #resetButton {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2000;
-            padding: 10px 20px;
-            font-size: 20px;
-            background-color: white;
-            border: none;
-            cursor: pointer;
-            display: none; /* Initially hidden */
         }
     </style>
 </head>
@@ -69,7 +53,6 @@
     
     <canvas id="gameCanvas"></canvas>
     <button id="startButton">Start Game</button>
-    <button id="resetButton" onclick="resetGame()">Reset Game</button> <!-- Reset button -->
 
     <script>
         const canvas = document.getElementById('gameCanvas');
@@ -79,12 +62,6 @@
 
         const stickman1 = document.getElementById('stickman1');
         const stickman2 = document.getElementById('stickman2');
-
-        stickman1.style.left = `${canvas.width / 4}px`;
-        stickman1.style.top = `${canvas.height - 150}px`;
-
-        stickman2.style.left = `${(canvas.width * 3) / 4}px`;
-        stickman2.style.top = `${canvas.height - 150}px`;
 
         let stickman1X = canvas.width / 4;
         let stickman1Y = canvas.height - 150;
@@ -118,26 +95,37 @@
         const damageRadius = 40; 
         let isStabbing1 = false;
         let isStabbing2 = false; 
+        let gameRunning = false; // To track if the game is running
 
+        // Function to start the game
+        function startGame() {
+            document.getElementById('startButton').style.display = 'none'; // Hide the start button
+            gameRunning = true; // Set gameRunning to true
+            update(); // Start the game loop
+        }
+
+        // Event listeners for key presses
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'w') keys.w = true;
-            if (e.key === 'a') keys.a = true;
-            if (e.key === 'd') keys.d = true;
-            if (e.key === 'e') {
-                keys.e = true;
-                isStabbing1 = true; 
-            }
-            if (e.key === 'ArrowUp') {
-                keys.ArrowUp = true;
-                if (!isJumping2) {
-                    isJumping2 = true;
-                    velocity2Y = jumpPower; 
+            if (gameRunning) { // Only listen to key events if the game is running
+                if (e.key === 'w') keys.w = true;
+                if (e.key === 'a') keys.a = true;
+                if (e.key === 'd') keys.d = true;
+                if (e.key === 'e') {
+                    keys.e = true;
+                    isStabbing1 = true; 
                 }
-            }
-            if (e.key === 'ArrowLeft') keys.ArrowLeft = true;
-            if (e.key === 'ArrowRight') keys.ArrowRight = true;
-            if (e.key === '/') {
-                isStabbing2 = true; 
+                if (e.key === 'ArrowUp') {
+                    keys.ArrowUp = true;
+                    if (!isJumping2) {
+                        isJumping2 = true;
+                        velocity2Y = jumpPower; 
+                    }
+                }
+                if (e.key === 'ArrowLeft') keys.ArrowLeft = true;
+                if (e.key === 'ArrowRight') keys.ArrowRight = true;
+                if (e.key === '/') {
+                    isStabbing2 = true; 
+                }
             }
         });
 
@@ -149,7 +137,7 @@
             if (e.key === 'ArrowUp') keys.ArrowUp = false;
             if (e.key === 'ArrowLeft') keys.ArrowLeft = false;
             if (e.key === 'ArrowRight') keys.ArrowRight = false;
-            if (e.key === '/') keys['/'] = false;
+            if (keys['/']) keys['/'] = false;
         });
 
         function drawHealthBars() {
@@ -218,13 +206,8 @@
             stickman2.style.top = `${stickman2Y}px`;
         }
 
-        function startGame() {
-            document.getElementById('startButton').style.display = 'none'; // Hide start button
-            document.getElementById('resetButton').style.display = 'none'; // Hide reset button
-            update(); // Start the game loop
-        }
-
         function update() {
+            if (!gameRunning) return; // Exit if the game is not running
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             drawHealthBars();
@@ -271,7 +254,8 @@
             requestAnimationFrame(update);
         }
 
-        document.getElementById('startButton').addEventListener('click', startGame); // Add event listener for start button
+        // Attach the startGame function to the start button
+        document.getElementById('startButton').addEventListener('click', startGame);
     </script>
 </body>
 </html>
