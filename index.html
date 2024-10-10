@@ -3,66 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practice</title>
+    <title>Game Home</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
             background-color: grey;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center center;
-        }
-        canvas {
-            display: block;
-        }
-        #topImage {
-            position: absolute;
-            top: 20px; 
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000; 
         }
         .character {
             position: absolute;
-            width: 160px;
-            height: 190px;
-        }
-
-        /* Flip KEN horizontally */
-        #stickman2 {
-            transform: scaleX(-1);
+            width: 160px; /* Adjust size as needed */
+            height: 190px; /* Adjust size as needed */
         }
     </style>
 </head>
 <body>
 
-    <!-- Top center image -->
-    <img id="topImage" src="escapekey.gif" alt="Top Center Image">
-    
     <!-- Character GIFs -->
-    <img id="stickman1" class="character" src="RYUGIF1.gif" alt="Stickman 1">
-    <img id="stickman2" class="character" src="KENGIF1.gif" alt="Stickman 2">
+    <img id="stickman1" class="character" src="RYUGIF1.gif" alt="Stickman 1" style="left: 25%; top: 75%;">
+    <img id="stickman2" class="character" src="KENGIF1.gif" alt="Stickman 2" style="left: 75%; top: 75%; transform: scaleX(-1);">
+
+    <!-- Reference to your game JavaScript file -->
+    <script src="GameHome1.js"></script>
     
-    <canvas id="gameCanvas"></canvas>
-
-    <script>
-        // Your game logic can go here, if needed
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const stickman1 = document.getElementById('stickman1');
-        const stickman2 = document.getElementById('stickman2');
-
-        stickman1.style.left = `${canvas.width / 4}px`;
-        stickman1.style.top = `${canvas.height - 150}px`;
-
-        stickman2.style.left = `${(canvas.width * 3) / 4}px`;
-        stickman2.style.top = `${canvas.height - 150}px`;
-
-        // You can add any additional game logic here...
-    </script>
 </body>
 </html>
