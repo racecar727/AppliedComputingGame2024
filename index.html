@@ -5,26 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Home</title>
     <style>
+        /* Optional: Add some basic styling */
         body {
+            font-family: Arial, sans-serif;
+            text-align: center;
             margin: 0;
-            overflow: hidden;
-            background-color: grey;
+            padding: 20px;
+            background-color: #f0f0f0;
         }
-        .character {
-            position: absolute;
-            width: 160px; /* Adjust size as needed */
-            height: 190px; /* Adjust size as needed */
+        canvas {
+            border: 1px solid #000;
         }
     </style>
 </head>
 <body>
+    <h1>Welcome to Game Home</h1>
 
-    <!-- Character GIFs -->
-    <img id="stickman1" class="character" src="RYUGIF1.gif" alt="Stickman 1" style="left: 25%; top: 75%;">
-    <img id="stickman2" class="character" src="KENGIF1.gif" alt="Stickman 2" style="left: 75%; top: 75%; transform: scaleX(-1);">
+    <!-- Display an image -->
+    <img src="path/to/your/image.png" alt="Description of Image" width="400">
 
-    <!-- Reference to your game JavaScript file -->
-    <script src="GameHome1.js"></script>
+    <!-- Canvas for the game -->
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
     
+    <script src="GameHome1.js"></script>
 </body>
 </html>
